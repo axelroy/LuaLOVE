@@ -15,6 +15,7 @@ canShootTimer = canShootTimerMax
 
 createEnemyTimerMax = 0.4
 createEnemyTimer = createEnemyTimerMax
+deadZone = 30
 
 -- Image Storage
 bulletImg = nil
@@ -26,6 +27,7 @@ enemies = {}
 
 isAlive = true
 score = 0
+sound = nil
 
 -------------------------------------------------
 
@@ -34,6 +36,7 @@ function love.load(arg)
     player.img = love.graphics.newImage('assets/plane.png')
     bulletImg = love.graphics.newImage('assets/bullet.png')
     enemyImg = love.graphics.newImage('assets/enemy.png')
+    sound = love.audio.newSource("assets/gun-sound.wav", "static") -- the "static" tells LÖVE to load the file into memory, good for short sound effects
 end
 
 -- Updating dunctions. Automatically called by the love framework.
@@ -104,6 +107,7 @@ function controlsChecking(dt)
     if love.keyboard.isDown(' ', 'rctrl', 'lctrl', 'ctrl', 'space') and canShoot and isAlive then                        -- Create some bullets
         newBullet = { x = player.x + (player.img:getWidth()/2), y = player.y, img = bulletImg }
         table.insert(bullets, newBullet)
+        sound:play()
         canShoot = false
         canShootTimer = canShootTimerMax
     end
@@ -147,7 +151,7 @@ function enemyCreating(dt)
         	createEnemyTimer = createEnemyTimerMax
 
         	-- Create an enemy
-        	randomNumber = math.random(10, love.graphics.getWidth() - 10)
+        	randomNumber = math.random(deadZone, love.graphics.getWidth() - deadZone)
         	newEnemy = { x = randomNumber, y = -10, img = enemyImg }
         	table.insert(enemies, newEnemy)
         end
