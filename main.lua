@@ -2,6 +2,7 @@ debug = true                                                   -- Shows the erro
 
 ---------------------  Notes  -------------------
 -- ~=  means !=
+-- Test authen
 
 -------------------  Attributes  ----------------
 player = { x = 200, y = 710, speed = 150, img = nil }          --
