@@ -15,7 +15,7 @@ canShootTimer = canShootTimerMax
 
 createEnemyTimerMax = 0.4
 createEnemyTimer = createEnemyTimerMax
-deadZone = 30
+deadZone = 15
 
 -- Image Storage
 bulletImg = nil
@@ -151,8 +151,8 @@ function enemyCreating(dt)
         	createEnemyTimer = createEnemyTimerMax
 
         	-- Create an enemy
-        	randomNumber = math.random(deadZone, love.graphics.getWidth() - deadZone)
-        	newEnemy = { x = randomNumber, y = -10, img = enemyImg }
+            spawnPosition = math.random(deadZone, love.graphics.getWidth() - enemyImg:getWidth() - deadZone)
+            newEnemy = { x = spawnPosition, y = -enemyImg:getHeight(), img = enemyImg }
         	table.insert(enemies, newEnemy)
         end
     end
